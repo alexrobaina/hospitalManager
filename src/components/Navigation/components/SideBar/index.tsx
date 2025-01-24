@@ -2,13 +2,20 @@ import {
   FC,
   ReactElement,
   MouseEvent,
-  useContext,
   useState,
   useEffect,
+  useContext,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../../../../services/store';
 import { ButtonNavigate } from '../ButtonNavigate';
+import {
+  ChevronLeft,
+  ChevronRight,
+  ClipboardHeart,
+  Dashboard,
+  Logout,
+} from '../../../../assets/icons';
+import { AppContext } from '../../../../services/AppContext';
 
 interface Props {
   children: ReactElement;
@@ -17,20 +24,11 @@ interface Props {
 }
 
 const TOP_NAVIGATION = [
-  { to: '/dashboard', icon: <div>Dashboard</div>, text: 'dashboard' },
-  { to: '/community', icon: <div>Community</div>, text: 'community' },
   {
-    to: '/appointments',
-    icon: <div>Appointments</div>,
-    text: 'appointments',
+    to: '/dashboard',
+    icon: <img src={Dashboard} alt="logo" />,
+    text: 'dashboard',
   },
-  { to: '/inventory', icon: <div>Inventory</div>, text: 'inventory' },
-  { to: '/expense', icon: <div>Expense</div>, text: 'expense' },
-  { to: '/searchPets', icon: <div>Search Pets</div>, text: 'searchPets' },
-];
-
-const BUTTON_NAVIGATION = [
-  { to: '/settings', text: 'settings', icon: <div>Settings</div> },
 ];
 
 export const SideBar: FC<Props> = ({
@@ -40,9 +38,8 @@ export const SideBar: FC<Props> = ({
 }) => {
   const [isOpenLngToggle, setIsOpenLngToggle] = useState(false);
   const navigation = useNavigate();
-  const context = useContext(AppContext);
+  const appContext = useContext(AppContext);
 
-  console.log(context);
   useEffect(() => {
     const handleClickOutside = () => {
       if (isOpenLngToggle) {
@@ -69,7 +66,15 @@ export const SideBar: FC<Props> = ({
 
   return (
     <div className="flex relative z-2">
-      <div className="overflow-x-auto sm:overflow-hidden z-20 fixed h-[67px] w-screen sm:w-auto sm:h-auto bottom-0 top-0 mt-2 mb-2 ml-2 sm:flex sm:flex-col bg-primary-300 rounded-md">
+      <div className="overflow-x-auto sm:overflow-hidden z-20 fixed h-[67px] w-screen sm:w-auto sm:h-auto bottom-0 top-0 mt-2 mb-2 ml-2 sm:flex sm:flex-col bg-blue-300 rounded-md">
+        <div className="flex items-center gap-2 p-4">
+          <img className="w-9 h-9" src={ClipboardHeart} alt="logo" />
+          {!menuIsCollapsed && (
+            <p className="text-md font-bold w-full text-overflow-ellipsis">
+              Hospital Manager
+            </p>
+          )}
+        </div>
         <div
           className={`${
             menuIsCollapsed ? 'left-[28px]' : 'left-[100px]'
@@ -77,16 +82,20 @@ export const SideBar: FC<Props> = ({
         >
           <div
             onClick={handleMenuIsCollapsed}
-            className="hidden ring-2 sm:flex cursor-pointer justify-center items-center ring-primary-800 h-4 w-4 rounded-full bg-primary-200 opacity-[900%]"
+            className="hidden ring-2 sm:flex cursor-pointer justify-center items-center ring-blue-800 h-4 w-4 rounded-full bg-blue-200 opacity-[900%]"
           >
-            {menuIsCollapsed ? <div>ChevronRight</div> : <div>ChevronLeft</div>}
+            {menuIsCollapsed ? (
+              <img className="w-12 h-12" src={ChevronRight} alt="logo" />
+            ) : (
+              <img className="w-12 h-12" src={ChevronLeft} alt="logo" />
+            )}
           </div>
         </div>
         <div
           onClick={handleMenuIsCollapsed}
           className={`${
             menuIsCollapsed ? 'w-[67px]' : 'w-[218px]'
-          } bg-primary-300 h-full cursor-pointer
+          } bg-blue-300 pt-4=2 h-full cursor-pointer
            rounded-md flex sm:flex-col justify-between gap-10 sm:gap-0 items-center p-2`}
         >
           <div className="sm:w-full flex sm:flex-col gap-2">
@@ -104,21 +113,19 @@ export const SideBar: FC<Props> = ({
               />
             ))}
           </div>
-          {BUTTON_NAVIGATION.map((item, index) => (
+          <div className="flex w-full flex-col gap-2">
+            <div className="py-2 capitalize truncate">
+              {appContext.user?.username}
+            </div>
             <ButtonNavigate
-              key={index}
-              icon={item.icon}
-              text={item.text}
+              icon={<img src={Logout} alt="logo" />}
+              text={'logout'}
               menuIsCollapsed={menuIsCollapsed}
-              isSelected={isSelected(item.text)}
-              handleNavigation={(e: MouseEvent<HTMLButtonElement>) => {
-                e.stopPropagation();
-                navigation(item.to);
+              isSelected={isSelected('logout')}
+              handleNavigation={() => {
+                navigation('/');
               }}
             />
-          ))}
-          <div className="flex justify-center">
-            <div>Logout</div>
           </div>
         </div>
       </div>
