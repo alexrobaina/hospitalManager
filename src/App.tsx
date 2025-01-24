@@ -2,40 +2,46 @@ import { observer } from 'mobx-react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import Navigation from './components/Navigation';
+import PrivateRoute from './components/PrivateRoute';
 
 import { DashboardPage } from './pages/DashboardPage';
 import { PatientPage } from './pages/PatientPage';
+import { AppContext, AppContextProps } from './services/AppContext';
+import { HomePage } from './pages/HomePage';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Navigation />,
     children: [
       {
         path: '/patient/:id',
-        element: <PatientPage />,
+        element: <PrivateRoute />,
+        children: [{ path: '', element: <PatientPage /> }],
       },
       {
         path: '/dashboard',
-        element: <DashboardPage />,
+        element: <PrivateRoute />,
+        children: [{ path: '', element: <DashboardPage /> }],
       },
-
       {
         path: '/',
-        element: <DashboardPage />,
+        children: [{ path: '', element: <HomePage /> }],
       },
       {
         path: '*',
-        element: <DashboardPage />,
+        children: [{ path: '', element: <HomePage /> }],
       },
     ],
   },
 ]);
 
-const App: React.FC = observer(() => {
+interface Props {
+  appContext: AppContextProps;
+}
+
+const App: React.FC<Props> = observer((props) => {
   return (
-    <>
+    <AppContext.Provider value={props.appContext}>
       <ToastContainer
         draggable
         rtl={false}
@@ -48,7 +54,7 @@ const App: React.FC = observer(() => {
         position="bottom-right"
       />
       <RouterProvider router={router} />
-    </>
+    </AppContext.Provider>
   );
 });
 
