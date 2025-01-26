@@ -39,7 +39,7 @@ export const Card: FC<CardProps> = ({
         className="w-full h-32 object-cover rounded-md mb-4"
       />
       <h2 className="text-xl font-semibold">{name}</h2>
-      <div className="flex flex-col gap-2 mt-2">
+      <div className="flex flex-col gap-2 mt-2 h-24">
         <p className="text-gray-600 line-clamp-4">{description}</p>
       </div>
       <div className="flex justify-between items-center mt-4">
