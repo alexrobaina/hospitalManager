@@ -5,13 +5,15 @@ interface CardProps {
   name: string;
   link: string;
   avatar: string;
-  onEdit: (e: React.MouseEvent) => void;
+  onEdit: (e: React.MouseEvent, id: string) => void;
   description: string;
-  onDelete: (e: React.MouseEvent) => void;
+  id: string;
+  onDelete: (e: React.MouseEvent, id: string) => void;
   handleImageError: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
 }
 
 export const Card: FC<CardProps> = ({
+  id,
   link,
   name,
   avatar,
@@ -22,12 +24,12 @@ export const Card: FC<CardProps> = ({
 }) => {
   const handleEdit = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onEdit(e);
+    onEdit(e, id);
   };
 
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onDelete(e);
+    onDelete(e, id);
   };
 
   return (
@@ -52,7 +54,10 @@ export const Card: FC<CardProps> = ({
           Visit Website
         </a>
         <div className="flex items-center gap-3">
-          <div onClick={handleEdit} className="z-10 flex items-center gap-2">
+          <div
+            onClick={(e) => handleEdit(e, id)}
+            className="z-10 flex items-center gap-2"
+          >
             <img alt="edit" src={EditIcon} className="w-6 h-6 cursor-pointer" />
           </div>
           <div onClick={handleDelete} className="z-10 flex items-center gap-2">

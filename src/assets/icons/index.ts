@@ -7,8 +7,10 @@ import Logout from './logoutIcon.svg';
 import SearchIcon from './searchIcon.svg';
 import EditIcon from './editIcon.svg';
 import DeleteIcon from './deleteIcon.svg';
+import PlusIcon from './plusIcon.svg';
 
 export {
+  PlusIcon,
   ClipboardHeart,
   Cancel,
   ChevronLeftIcon,
