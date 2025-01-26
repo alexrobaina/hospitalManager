@@ -8,7 +8,6 @@ import { User, useGetUsers } from '../../hooks/useGetUsers';
 import { SearchIcon } from '../../assets/icons';
 import { EditPatientModal } from '../PatientPage/components/EditPatientModal';
 import { useDeleteUser } from '../../hooks/useDeleteUser';
-import { Pagination } from '../../components/Pagination';
 
 export const DashboardPage = () => {
   const [initialData, setInitialData] = useState<User>({
@@ -20,18 +19,12 @@ export const DashboardPage = () => {
   });
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [page, setPage] = useState(1);
-  const [take] = useState(12);
   const navigate = useNavigate();
   const { data: users = [], isLoading, error } = useGetUsers(
     searchQuery,
-    page,
-    take
+    1,
+    12
   );
-  // get all users to take the total
-  const { data: totalUsers } = useGetUsers(searchQuery, page, null);
-  const total = totalUsers?.length || 12;
-
   const { mutate: deleteUser } = useDeleteUser();
 
   const goToPatientPage = (id: string) => {
@@ -85,12 +78,12 @@ export const DashboardPage = () => {
         />
       </div>
       {isLoading && <CardSkeleton />}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 flex-wrap sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {users.map((user: User) => (
           <div
+            key={user.id}
             className="cursor-pointer"
             onClick={() => goToPatientPage(user.id)}
-            key={user.id}
           >
             <Card
               name={user.name}
@@ -103,9 +96,6 @@ export const DashboardPage = () => {
             />
           </div>
         ))}
-        <div className="col-span-4">
-          <Pagination page={page} take={take} total={total} setPage={setPage} />
-        </div>
       </div>
       <EditPatientModal
         isOpen={isEditModalOpen}
