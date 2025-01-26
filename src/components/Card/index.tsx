@@ -45,14 +45,16 @@ export const Card: FC<CardProps> = ({
         <p className="text-gray-600 line-clamp-4">{description}</p>
       </div>
       <div className="flex justify-between items-center mt-4">
-        <a
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500 hover:underline mt-2 block"
-        >
-          Visit Website
-        </a>
+        {link && (
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline mt-2 block"
+          >
+            Visit Website
+          </a>
+        )}
         <div className="flex items-center gap-3">
           <div
             onClick={(e) => handleEdit(e, id)}

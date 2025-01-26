@@ -8,3 +8,4 @@ export * from './LogoutIcon';
 export * from './DashboardIcon';
 export * from './SearchIcon';
 export * from './ClipboardHeartIcon';
+export * from './NetworkIcon';

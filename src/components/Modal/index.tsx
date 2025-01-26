@@ -1,5 +1,6 @@
 import { CancelIcon } from '../icons';
 import { BaseButton } from '../BaseButton';
+import { motion } from 'framer-motion';
 
 interface Props {
   isOpen: boolean;
@@ -23,17 +24,25 @@ export const Modal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Overlay */}
-      <div className="fixed inset-0 bg-black opacity-50" onClick={onClose} />
+      <div
+        className="fixed inset-0 bg-black opacity-50 cursor-pointer"
+        onClick={onClose}
+      />
 
       {/* Modal Content */}
-      <div className="bg-white rounded-lg shadow-lg z-10 w-full max-w-md p-6">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className="bg-white rounded-lg shadow-lg z-10 w-full max-w-md p-6"
+      >
         {title && (
           <>
             <div className="flex justify-between items-center">
               <h1 className="text-xl font-bold text-primary-900">{title}</h1>
               <button
                 onClick={onClose}
-                className="text-secondary-600 hover:text-secondary-800"
+                className="text-secondary-600 hover:text-secondary-800 cursor-pointer"
               >
                 <CancelIcon />
               </button>
@@ -58,7 +67,7 @@ export const Modal = ({
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
