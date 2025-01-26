@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { ChevronLeftIcon, ChevronRightIcon } from '../../assets/icons';
+import { ChevronLeftIcon, ChevronRightIcon } from '../icons';
 
 interface Props {
   page: number;
@@ -63,7 +63,7 @@ export const Pagination: FC<Props> = ({ page, take, total, setPage }) => {
                 className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               >
                 <span className="sr-only">Previous</span>
-                <img src={ChevronLeftIcon} alt="chevron-left" />
+                <ChevronLeftIcon />
               </a>
               {getPageNumbers().map((pageNumber) => (
                 <div key={pageNumber}>
@@ -81,7 +81,7 @@ export const Pagination: FC<Props> = ({ page, take, total, setPage }) => {
                 className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               >
                 <span className="sr-only">Next</span>
-                <img src={ChevronRightIcon} alt="chevron-right" />
+                <ChevronRightIcon />
               </a>
             </nav>
           )}

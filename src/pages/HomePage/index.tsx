@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '../../components/Modal';
@@ -12,11 +12,18 @@ export const HomePage: FC = observer(() => {
   const [username, setUsername] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  console.log('store', appContext?.user?.username);
+  const [validation, setValidation] = useState({
+    username: false,
+  });
 
   const handleSubmit = () => {
+    if (!username) {
+      setValidation({ username: true });
+      return;
+    }
+    setValidation({ username: false });
     appContext.user = { username };
-    console.log(appContext?.user?.username);
+
     navigate('/dashboard');
   };
 
@@ -90,7 +97,7 @@ export const HomePage: FC = observer(() => {
               value={username}
               onChange={handleUsername}
               placeholder="Enter your username"
-              helperText="Please enter your username to login to your account."
+              error={validation.username ? 'Please enter your username' : ''}
             />
           </div>
         </Modal>

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { EditIcon, DeleteIcon } from '../../assets/icons';
+import { EditIcon, DeleteIcon } from '../icons';
 
 interface CardProps {
   name: string;
@@ -22,12 +22,12 @@ export const Card: FC<CardProps> = ({
   description,
   handleImageError,
 }) => {
-  const handleEdit = (e: React.MouseEvent) => {
+  const handleEdit = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     onEdit(e, id);
   };
 
-  const handleDelete = (e: React.MouseEvent) => {
+  const handleDelete = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     onDelete(e, id);
   };
@@ -58,18 +58,13 @@ export const Card: FC<CardProps> = ({
             onClick={(e) => handleEdit(e, id)}
             className="z-10 flex items-center gap-2"
           >
-            <img alt="edit" src={EditIcon} className="w-6 h-6 cursor-pointer" />
+            <EditIcon />
           </div>
-          <div onClick={handleDelete} className="z-10 flex items-center gap-2">
-            <img
-              alt="delete"
-              className="w-6 h-6 cursor-pointer"
-              src={DeleteIcon}
-              style={{
-                filter:
-                  'invert(20%) sepia(100%) saturate(6000%) hue-rotate(0deg)',
-              }}
-            />
+          <div
+            onClick={(e) => handleDelete(e, id)}
+            className="z-10 flex items-center gap-2"
+          >
+            <DeleteIcon />
           </div>
         </div>
       </div>
