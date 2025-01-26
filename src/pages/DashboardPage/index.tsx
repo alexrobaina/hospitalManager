@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { User, useGetUsers } from '../../hooks/useGetUsers';
 import { SearchIcon } from '../../assets/icons';
 import { EditPatientModal } from '../PatientPage/components/EditPatientModal';
+import { useDeleteUser } from '../../hooks/useDeleteUser';
 
 export const DashboardPage = () => {
   const [initialData, setInitialData] = useState<User>({
@@ -24,6 +25,7 @@ export const DashboardPage = () => {
     1,
     12
   );
+  const { mutate: deleteUser } = useDeleteUser();
 
   const goToPatientPage = (id: string) => {
     navigate(`/patient/${id}`);
@@ -53,9 +55,11 @@ export const DashboardPage = () => {
     setIsEditModalOpen(true);
   };
 
-  const handleDelete = (e: React.MouseEvent<HTMLDivElement>, id: string) => {
+  const handleDelete = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
-    console.log('delete', id);
+    if (window.confirm('Are you sure you want to delete this patient?')) {
+      deleteUser(id);
+    }
   };
 
   if (error) return <div>Error loading patients</div>;
