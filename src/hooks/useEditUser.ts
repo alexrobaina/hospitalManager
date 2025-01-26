@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 interface User {
   id: string;
@@ -23,6 +24,10 @@ export const useEditUser = (invalidateQueries: string = '') => {
   return useMutation(editUser, {
     onSuccess: () => {
       queryClient.invalidateQueries(invalidateQueries);
+      toast.success('Patient updated successfully');
+    },
+    onError: () => {
+      toast.error('Failed to update patient');
     },
   });
 };

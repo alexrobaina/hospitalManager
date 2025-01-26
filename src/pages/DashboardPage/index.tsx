@@ -2,12 +2,15 @@ import imageNotFound from '../../assets/images/imageNotFound.png';
 import { Card } from '../../components/Card';
 import { useNavigate } from 'react-router-dom';
 import { BaseInput } from '../../components/BaseInput';
+import { PlusIcon } from '../../assets/icons';
 import { CardSkeleton } from './components/CardSkeleton';
 import { useState } from 'react';
 import { User, useGetUsers } from '../../hooks/useGetUsers';
 import { SearchIcon } from '../../assets/icons';
 import { EditPatientModal } from '../PatientPage/components/EditPatientModal';
 import { useDeleteUser } from '../../hooks/useDeleteUser';
+import { BaseButton } from '../../components/BaseButton';
+import { CreatePatientModal } from '../PatientPage/components/CreatePatientModal';
 
 export const DashboardPage = () => {
   const [initialData, setInitialData] = useState<User>({
@@ -18,6 +21,7 @@ export const DashboardPage = () => {
     description: '',
   });
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const { data: users = [], isLoading, error } = useGetUsers(
@@ -25,6 +29,9 @@ export const DashboardPage = () => {
     1,
     12
   );
+
+  console.log(users);
+
   const { mutate: deleteUser } = useDeleteUser();
 
   const goToPatientPage = (id: string) => {
@@ -35,16 +42,20 @@ export const DashboardPage = () => {
     setSearchQuery(e.target.value);
   };
 
+  const handleOpenCreateModal = (isCreateModalOpen: boolean) => {
+    setIsCreateModalOpen(!isCreateModalOpen);
+  };
+
   const handleImageError = (
     e: React.SyntheticEvent<HTMLImageElement, Event>
   ) => {
     e.currentTarget.src = imageNotFound;
   };
 
-  const handleEdit = (e: React.MouseEvent<HTMLDivElement>, id: string) => {
+  const handleEdit = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     setInitialData(
-      users.find((user) => user.id === id) || {
+      users.find((user: User) => user.id === id) || {
         id: '',
         name: '',
         avatar: '',
@@ -66,8 +77,20 @@ export const DashboardPage = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Patients</h1>
-      <p className="text-sm text-gray-500 mb-4">Search for a patient by name</p>
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-2xl font-bold mb-4">Patients</h1>
+          <p className="text-sm text-gray-500 mb-4">
+            Search for a patient by name
+          </p>
+        </div>
+        <BaseButton
+          text="Add Patient"
+          icon={<img src={PlusIcon} alt="plus" className="w-5 h-5" />}
+          onClick={() => handleOpenCreateModal(isCreateModalOpen)}
+        />
+      </div>
+
       <div className="flex py-4">
         <BaseInput
           label="Search Patient"
@@ -86,13 +109,14 @@ export const DashboardPage = () => {
             onClick={() => goToPatientPage(user.id)}
           >
             <Card
+              id={user.id}
               name={user.name}
               link={user.website}
+              onEdit={handleEdit}
               avatar={user.avatar}
+              onDelete={handleDelete}
               description={user.description}
               handleImageError={handleImageError}
-              onEdit={(e) => handleEdit(e, user.id)}
-              onDelete={(e) => handleDelete(e, user.id)}
             />
           </div>
         ))}
@@ -101,6 +125,10 @@ export const DashboardPage = () => {
         isOpen={isEditModalOpen}
         initialData={initialData}
         onClose={() => setIsEditModalOpen(false)}
+      />
+      <CreatePatientModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
       />
     </div>
   );

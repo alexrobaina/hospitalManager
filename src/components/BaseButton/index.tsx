@@ -27,6 +27,7 @@ export const BaseButton: FC<Props> = ({
   backgroundColor,
   type = 'button',
   onClick = () => {},
+  style = 'primary',
 }) => {
   // if only icon is passed, then the button will be a circle
   const shouldDisplayOnlyIcon = (
@@ -53,6 +54,7 @@ export const BaseButton: FC<Props> = ({
       isDisabled &&
       'bg-gray-400 cursor-not-allowed hover:bg-gray-300 hover:shadow-none'
     }
+    ${style === 'primary' && 'bg-blue-500 text-white hover:bg-blue-600'}
   `}
     >
       {isLoading && <BaseLoading />}
