@@ -12,7 +12,7 @@ export interface User {
 const fetchUsers = async (
   query: string,
   page: number,
-  limit: number
+  limit: number | null
 ): Promise<User[]> => {
   const url = 'https://63bedcf7f5cfc0949b634fc8.mockapi.io/users';
   const { data } = await axios.get(url, {
@@ -25,7 +25,11 @@ const fetchUsers = async (
   return data;
 };
 
-export const useGetUsers = (query: string, page: number, limit: number) => {
+export const useGetUsers = (
+  query: string,
+  page: number,
+  limit: number | null
+) => {
   return useQuery(['users', query, page, limit], () =>
     fetchUsers(query, page, limit)
   );

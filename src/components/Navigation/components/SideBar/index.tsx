@@ -9,8 +9,8 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { ButtonNavigate } from '../ButtonNavigate';
 import {
-  ChevronLeft,
-  ChevronRight,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   ClipboardHeart,
   Dashboard,
   Logout,
@@ -85,9 +85,9 @@ export const SideBar: FC<Props> = ({
             className="hidden ring-2 sm:flex cursor-pointer justify-center items-center ring-blue-800 h-4 w-4 rounded-full bg-blue-200 opacity-[900%]"
           >
             {menuIsCollapsed ? (
-              <img className="w-12 h-12" src={ChevronRight} alt="logo" />
+              <img src={ChevronRightIcon} alt="chevron-right" />
             ) : (
-              <img className="w-12 h-12" src={ChevronLeft} alt="logo" />
+              <img src={ChevronLeftIcon} alt="chevron-left" />
             )}
           </div>
         </div>
