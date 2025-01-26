@@ -31,7 +31,7 @@ export const Card: FC<CardProps> = ({
   };
 
   return (
-    <div className="bg-white shadow-md w-[340px]rounded-lg p-4 min-h-[340px]">
+    <div className="bg-white shadow-md min-w-[340px]rounded-lg p-4 min-h-[340px]">
       <img
         src={avatar}
         alt={name}

@@ -1,11 +1,4 @@
-import {
-  FC,
-  ReactElement,
-  MouseEvent,
-  useState,
-  useEffect,
-  useContext,
-} from 'react';
+import { FC, ReactElement, MouseEvent, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ButtonNavigate } from '../ButtonNavigate';
 import {
@@ -36,21 +29,8 @@ export const SideBar: FC<Props> = ({
   menuIsCollapsed,
   setMenuIsCollapsed,
 }) => {
-  const [isOpenLngToggle, setIsOpenLngToggle] = useState(false);
   const navigation = useNavigate();
   const appContext = useContext(AppContext);
-
-  useEffect(() => {
-    const handleClickOutside = () => {
-      if (isOpenLngToggle) {
-        setIsOpenLngToggle(false);
-      }
-    };
-    window.addEventListener('click', handleClickOutside);
-    return () => {
-      window.removeEventListener('click', handleClickOutside);
-    };
-  }, [isOpenLngToggle]);
 
   const handleMenuIsCollapsed = () => {
     if (window.innerWidth < 638) {
@@ -64,10 +44,27 @@ export const SideBar: FC<Props> = ({
     return pathname.includes(path);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 638) {
+        setMenuIsCollapsed(true);
+      }
+    };
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+
+    // Remove event listener on cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="flex relative z-2">
-      <div className="overflow-x-auto sm:overflow-hidden z-20 fixed h-[67px] w-screen sm:w-auto sm:h-auto bottom-0 top-0 mt-2 mb-2 ml-2 sm:flex sm:flex-col bg-blue-300 rounded-md">
-        <div className="flex items-center gap-2 p-4">
+      <div className="overflow-hidden z-20 flex justify-between items-center fixed w-full h-[67px] mr-2 sm:w-auto sm:h-auto bottom-0 top-0 sm:mt-2 sm:mb-2 sm:ml-2 sm:flex sm:flex-col bg-blue-300 rounded-md">
+        <div className="flex sm:w-full sm:p-4 items-center gap-2 px-4">
           <img className="w-9 h-9" src={ClipboardHeart} alt="logo" />
           {!menuIsCollapsed && (
             <p className="text-md font-bold w-full text-overflow-ellipsis">
@@ -76,25 +73,9 @@ export const SideBar: FC<Props> = ({
           )}
         </div>
         <div
-          className={`${
-            menuIsCollapsed ? 'left-[28px]' : 'left-[100px]'
-          } opacity-[50%] top-[48%] absolute z-50`}
-        >
-          <div
-            onClick={handleMenuIsCollapsed}
-            className="hidden ring-2 sm:flex cursor-pointer justify-center items-center ring-blue-800 h-4 w-4 rounded-full bg-blue-200 opacity-[900%]"
-          >
-            {menuIsCollapsed ? (
-              <img src={ChevronRightIcon} alt="chevron-right" />
-            ) : (
-              <img src={ChevronLeftIcon} alt="chevron-left" />
-            )}
-          </div>
-        </div>
-        <div
           onClick={handleMenuIsCollapsed}
           className={`${
-            menuIsCollapsed ? 'w-[67px]' : 'w-[218px]'
+            menuIsCollapsed ? 'sm:w-[67px] w-full' : 'sm:w-[218px] w-[67px]'
           } bg-blue-300 pt-4=2 h-full cursor-pointer
            rounded-md flex sm:flex-col justify-between gap-10 sm:gap-0 items-center p-2`}
         >
@@ -113,19 +94,21 @@ export const SideBar: FC<Props> = ({
               />
             ))}
           </div>
-          <div className="flex w-full flex-col gap-2">
-            <div className="py-2 capitalize truncate">
+          <div className="flex w-full flex-row sm:flex-col gap-2 justify-end">
+            <div className="py-2 capitalize items-center truncate">
               {appContext.user?.username}
             </div>
-            <ButtonNavigate
-              icon={<img src={Logout} alt="logo" />}
-              text={'logout'}
-              menuIsCollapsed={menuIsCollapsed}
-              isSelected={isSelected('logout')}
-              handleNavigation={() => {
-                navigation('/');
-              }}
-            />
+            <div className="sm:w-full flex sm:flex-col gap-2">
+              <ButtonNavigate
+                icon={<img src={Logout} alt="logo" />}
+                text={'logout'}
+                menuIsCollapsed={menuIsCollapsed}
+                isSelected={isSelected('logout')}
+                handleNavigation={() => {
+                  navigation('/');
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
