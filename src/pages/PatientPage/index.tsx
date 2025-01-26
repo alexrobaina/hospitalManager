@@ -1,10 +1,15 @@
 import { useParams } from 'react-router-dom';
 import { useUserById } from '../../hooks/useUserById';
 import { PatientSkeleton } from './components/PatientSkeleton';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { EditPatientModal } from './components/EditPatientModal';
 
 export const PatientPage = () => {
   const { id } = useParams<{ id: string }>();
   const { data: user, isLoading, error } = useUserById(id || '');
+  const navigate = useNavigate();
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   if (!id) return <div>No patient ID provided</div>;
   if (isLoading) return <PatientSkeleton />;
@@ -12,6 +17,12 @@ export const PatientPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+      >
+        Back
+      </button>
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Header/Banner */}
         <div className="h-48 bg-gradient-to-r from-blue-500 to-purple-600" />
@@ -21,16 +32,24 @@ export const PatientPage = () => {
           {/* Profile Image */}
           <div className="absolute -top-16 left-6">
             <img
-              src={user.avatar}
-              alt={user.name}
+              src={user?.avatar}
+              alt={user?.name}
               className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
             />
           </div>
 
           {/* Profile Info */}
-          <div className="ml-40">
-            <h1 className="text-3xl font-bold text-gray-900">{user.name}</h1>
-            <p className="text-gray-500 mt-1">Patient ID: {id}</p>
+          <div className="ml-40 flex justify-between items-center">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">{user?.name}</h1>
+              <p className="text-gray-500 mt-1">Patient ID: {id}</p>
+            </div>
+            <button
+              onClick={() => setIsEditModalOpen(true)}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+            >
+              Edit Profile
+            </button>
           </div>
 
           {/* Details Section */}
@@ -41,7 +60,7 @@ export const PatientPage = () => {
                 About
               </h2>
               <p className="text-gray-600 leading-relaxed">
-                {user.description}
+                {user?.description}
               </p>
             </div>
 
@@ -52,7 +71,7 @@ export const PatientPage = () => {
               </h2>
               <div className="space-y-3">
                 <a
-                  href={user.website}
+                  href={user?.website}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center text-blue-600 hover:text-blue-800 transition"
@@ -77,6 +96,11 @@ export const PatientPage = () => {
           </div>
         </div>
       </div>
+      <EditPatientModal
+        isOpen={isEditModalOpen}
+        initialData={user || {}}
+        onClose={() => setIsEditModalOpen(false)}
+      />
     </div>
   );
 };
