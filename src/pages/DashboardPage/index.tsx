@@ -2,11 +2,11 @@ import imageNotFound from '../../assets/images/imageNotFound.png';
 import { Card } from '../../components/Card';
 import { useNavigate } from 'react-router-dom';
 import { BaseInput } from '../../components/BaseInput';
-import { PlusIcon } from '../../assets/icons';
+import { PlusIcon } from '../../components/icons';
 import { CardSkeleton } from './components/CardSkeleton';
 import { useState } from 'react';
 import { User, useGetUsers } from '../../hooks/useGetUsers';
-import { SearchIcon } from '../../assets/icons';
+import { SearchIcon } from '../../components/icons';
 import { EditPatientModal } from '../PatientPage/components/EditPatientModal';
 import { useDeleteUser } from '../../hooks/useDeleteUser';
 import { BaseButton } from '../../components/BaseButton';
@@ -76,17 +76,18 @@ export const DashboardPage = () => {
   if (error) return <div>Error loading patients</div>;
 
   return (
-    <div className="p-4">
+    <div className="p-2">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold mb-4">Patients</h1>
+          <h1 className="text-4xl font-bold mb-4">Patients</h1>
           <p className="text-sm text-gray-500 mb-4">
             Search for a patient by name
           </p>
         </div>
         <BaseButton
           text="Add Patient"
-          icon={<img src={PlusIcon} alt="plus" className="w-5 h-5" />}
+          style="primary"
+          icon={<PlusIcon className="w-5 h-5" color="#ffffff" />}
           onClick={() => handleOpenCreateModal(isCreateModalOpen)}
         />
       </div>
@@ -97,7 +98,7 @@ export const DashboardPage = () => {
           placeholder="Enter patient name"
           onChange={handleInputChange}
           helperText="Type a patient's name to find their details."
-          icon={<img src={SearchIcon} alt="search" className="w-5 h-5" />}
+          icon={<SearchIcon />}
         />
       </div>
       {isLoading && <CardSkeleton />}

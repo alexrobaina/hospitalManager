@@ -42,7 +42,7 @@ export const BaseButton: FC<Props> = ({
       onClick={onClick}
       disabled={isDisabled}
       style={{ backgroundColor }}
-      className={`flex items-center justify-center gap-3  ${
+      className={`flex cursor-pointer items-center justify-center gap-3  ${
         wFull ? 'w-full' : 'w-auto'
       } 
     ${className && className} py-2 px-4 rounded 
@@ -54,7 +54,13 @@ export const BaseButton: FC<Props> = ({
       isDisabled &&
       'bg-gray-400 cursor-not-allowed hover:bg-gray-300 hover:shadow-none'
     }
-    ${style === 'primary' && 'bg-blue-500 text-white hover:bg-blue-600'}
+    ${style === 'primary' && 'bg-cyan-500 text-gray-50 hover:bg-cyan-600'}
+    ${style === 'secondary' && 'bg-gray-200 text-gray-950 hover:bg-gray-300'}
+    ${
+      style === 'tertiary' &&
+      'bg-gray-500 text-gray-50 border border-gray-500 hover:bg-gray-600'
+    }
+    ${style === 'delete' && 'bg-red-500 text-gray-50 hover:bg-red-600'}
   `}
     >
       {isLoading && <BaseLoading />}

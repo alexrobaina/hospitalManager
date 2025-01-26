@@ -19,8 +19,8 @@ export const ButtonNavigate: FC<Props> = ({
     <button
       onClick={handleNavigation}
       className={`${
-        isSelected ? 'bg-blue-400' : ''
-      } flex justify-start gap-2 p-2 pl-[10px] w-full h-[48px] w-48px bg-blue-200 rounded-md items-center hover:bg-blue-100`}
+        isSelected ? 'bg-cyan-300' : ''
+      } flex cursor-pointer justify-start gap-2 p-2 pl-[10px] w-full h-[48px] w-48px bg-cyan-400 rounded-md items-center hover:bg-cyan-300`}
     >
       <div style={{ stroke: '30px' }} className="flex justify-center w-[30px]">
         {icon}

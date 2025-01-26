@@ -1,13 +1,7 @@
 import { FC, ReactElement, MouseEvent, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ButtonNavigate } from '../ButtonNavigate';
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ClipboardHeart,
-  Dashboard,
-  Logout,
-} from '../../../../assets/icons';
+import { ClipboardHeartIcon, DashboardIcon, LogoutIcon } from '../../../icons';
 import { AppContext } from '../../../../services/AppContext';
 
 interface Props {
@@ -19,7 +13,7 @@ interface Props {
 const TOP_NAVIGATION = [
   {
     to: '/dashboard',
-    icon: <img src={Dashboard} alt="logo" />,
+    icon: <DashboardIcon />,
     text: 'dashboard',
   },
 ];
@@ -63,9 +57,9 @@ export const SideBar: FC<Props> = ({
 
   return (
     <div className="flex relative z-2">
-      <div className="overflow-hidden z-20 flex justify-between items-center fixed w-full h-[67px] mr-2 sm:w-auto sm:h-auto bottom-0 top-0 sm:mt-2 sm:mb-2 sm:ml-2 sm:flex sm:flex-col bg-blue-300 rounded-md">
+      <div className="overflow-hidden z-20 flex justify-between items-center fixed w-full h-[67px] mr-2 sm:w-auto sm:h-auto bottom-0 top-0 sm:mt-2 sm:mb-2 sm:ml-2 sm:flex sm:flex-col bg-cyan-400 rounded-md">
         <div className="flex sm:w-full sm:p-4 items-center gap-2 px-4">
-          <img className="w-9 h-9" src={ClipboardHeart} alt="logo" />
+          <ClipboardHeartIcon className="w-9 h-9" />
           {!menuIsCollapsed && (
             <p className="text-md font-bold w-full text-overflow-ellipsis">
               Hospital Manager
@@ -76,7 +70,7 @@ export const SideBar: FC<Props> = ({
           onClick={handleMenuIsCollapsed}
           className={`${
             menuIsCollapsed ? 'sm:w-[67px] w-full' : 'sm:w-[218px] w-[67px]'
-          } bg-blue-300 pt-4=2 h-full cursor-pointer
+          } bg-cyan-200 pt-4=2 h-full cursor-pointer
            rounded-md flex sm:flex-col justify-between gap-10 sm:gap-0 items-center p-2`}
         >
           <div className="sm:w-full flex sm:flex-col gap-2">
@@ -100,7 +94,7 @@ export const SideBar: FC<Props> = ({
             </div>
             <div className="sm:w-full flex sm:flex-col gap-2">
               <ButtonNavigate
-                icon={<img src={Logout} alt="logo" />}
+                icon={<LogoutIcon />}
                 text={'logout'}
                 menuIsCollapsed={menuIsCollapsed}
                 isSelected={isSelected('logout')}
