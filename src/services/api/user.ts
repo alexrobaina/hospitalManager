@@ -20,7 +20,9 @@ export const getUsers = async ({
         limit,
       },
     });
-    return data;
+
+    const total = await axios.get(`${baseURL}/users`);
+    return { users: data, total: total.data.length };
   } catch (error) {
     console.error(error);
     throw error;

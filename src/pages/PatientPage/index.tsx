@@ -4,6 +4,10 @@ import { PatientSkeleton } from './components/PatientSkeleton';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { EditPatientModal } from './components/EditPatientModal';
+import { motion } from 'framer-motion';
+import { BaseButton } from '../../components/BaseButton';
+import { NetworkIcon } from '../../components/icons';
+import imageNotFound from '../../assets/images/imageNotFound.png';
 
 export const PatientPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -11,29 +15,41 @@ export const PatientPage = () => {
   const navigate = useNavigate();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
+  const handleImageError = (
+    e: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    e.currentTarget.src = imageNotFound;
+    e.currentTarget.alt = 'Image not found';
+  };
+
   if (!id) return <div>No patient ID provided</div>;
   if (isLoading) return <PatientSkeleton />;
   if (error) return <div>Error loading user data</div>;
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <button
-        onClick={() => navigate(-1)}
-        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-      >
-        Back
-      </button>
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="container mx-auto px-4 py-8"
+    >
+      <BaseButton text="Back" onClick={handleBack} />
+      <div className="bg-white rounded-lg shadow-lg overflow-hidden mt-4">
         {/* Header/Banner */}
-        <div className="h-48 bg-gradient-to-r from-blue-500 to-purple-600" />
+        <div className="h-48 bg-gradient-to-r from-cyan-500 to-blue-600" />
 
         {/* Profile Content */}
         <div className="relative px-6 py-8">
           {/* Profile Image */}
           <div className="absolute -top-16 left-6">
             <img
-              src={user?.avatar}
               alt={user?.name}
+              src={user?.avatar}
+              onError={handleImageError}
               className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
             />
           </div>
@@ -44,12 +60,10 @@ export const PatientPage = () => {
               <h1 className="text-3xl font-bold text-gray-900">{user?.name}</h1>
               <p className="text-gray-500 mt-1">Patient ID: {id}</p>
             </div>
-            <button
+            <BaseButton
+              text="Edit Profile"
               onClick={() => setIsEditModalOpen(true)}
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-            >
-              Edit Profile
-            </button>
+            />
           </div>
 
           {/* Details Section */}
@@ -69,29 +83,19 @@ export const PatientPage = () => {
               <h2 className="text-xl font-semibold text-gray-900 mb-4">
                 Contact Information
               </h2>
-              <div className="space-y-3">
-                <a
-                  href={user?.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center text-blue-600 hover:text-blue-800 transition"
-                >
-                  <svg
-                    className="w-5 h-5 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+              {user?.website && (
+                <div className="space-y-3">
+                  <a
+                    target="_blank"
+                    href={user?.website}
+                    rel="noopener noreferrer"
+                    className="flex items-center text-blue-600 hover:text-blue-800 transition gap-2"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
-                    />
-                  </svg>
-                  Visit Website
-                </a>
-              </div>
+                    <NetworkIcon />
+                    Visit Website
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -101,6 +105,6 @@ export const PatientPage = () => {
         initialData={user || {}}
         onClose={() => setIsEditModalOpen(false)}
       />
-    </div>
+    </motion.div>
   );
 };
