@@ -1,4 +1,4 @@
-import { Remove } from '../../assets/icons';
+import { Cancel } from '../../assets/icons';
 import { BaseButton } from '../BaseButton';
 
 interface Props {
@@ -35,7 +35,7 @@ export const Modal = ({
                 onClick={onClose}
                 className="text-secondary-600 hover:text-secondary-800"
               >
-                <img src={Remove} alt="remove" className="w-5 h-5" />
+                <img src={Cancel} alt="cancel" className="w-5 h-5" />
               </button>
             </div>
             <div className="w-full h-px border-b my-4 border-gray-200" />

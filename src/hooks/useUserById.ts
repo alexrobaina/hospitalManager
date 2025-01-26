@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 
 const getUserById = async (userId: string) => {
@@ -9,7 +9,13 @@ const getUserById = async (userId: string) => {
 };
 
 export const useUserById = (userId: string) => {
+  const queryClient = useQueryClient();
+
   return useQuery(['user', userId], () => getUserById(userId), {
     enabled: !!userId, // Only run the query if userId is truthy
+    onSuccess: () => {
+      queryClient.invalidateQueries('users');
+      queryClient.invalidateQueries('user');
+    },
   });
 };

@@ -1,8 +1,21 @@
-import ClipboardHeart from './clipboardHeart.svg';
-import Remove from './remove.svg';
-import ChevronLeft from './chevronLeft.svg';
-import ChevronRight from './chevronRight.svg';
-import Dashboard from './dashboard.svg';
-import Logout from './logout.svg';
+import ClipboardHeart from './clipboardHeartIcon.svg';
+import Cancel from './cancelIcon.svg';
+import ChevronLeft from './chevronLeftIcon.svg';
+import ChevronRight from './chevronRightIcon.svg';
+import Dashboard from './dashboardIcon.svg';
+import Logout from './logoutIcon.svg';
+import SearchIcon from './searchIcon.svg';
+import EditIcon from './editIcon.svg';
+import DeleteIcon from './deleteIcon.svg';
 
-export { ClipboardHeart, Remove, ChevronLeft, ChevronRight, Dashboard, Logout };
+export {
+  ClipboardHeart,
+  Cancel,
+  ChevronLeft,
+  ChevronRight,
+  Dashboard,
+  Logout,
+  SearchIcon,
+  EditIcon,
+  DeleteIcon,
+};

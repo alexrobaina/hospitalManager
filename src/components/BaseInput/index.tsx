@@ -2,8 +2,9 @@ import { FC, InputHTMLAttributes } from 'react';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  error?: string;
+  error?: string | false | undefined;
   helperText?: string;
+  icon?: React.ReactNode;
 }
 
 export const BaseInput: FC<Props> = ({
@@ -11,6 +12,7 @@ export const BaseInput: FC<Props> = ({
   error,
   helperText,
   className = '',
+  icon,
   ...props
 }) => {
   return (
@@ -37,8 +39,13 @@ export const BaseInput: FC<Props> = ({
           `}
           {...props}
         />
+        {icon && (
+          <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
+            {icon}
+          </div>
+        )}
       </div>
-      {error ? (
+      {typeof error === 'string' ? (
         <p className="mt-1 text-sm text-red-600">{error}</p>
       ) : helperText ? (
         <p className="mt-1 text-sm text-gray-500">{helperText}</p>
