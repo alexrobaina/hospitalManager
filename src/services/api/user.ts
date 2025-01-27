@@ -8,9 +8,9 @@ export const getUsers = async ({
   page,
   limit,
 }: {
-  query: string;
-  page: number;
-  limit: number | null;
+  query?: string;
+  page?: number;
+  limit?: number | null;
 }) => {
   try {
     const { data } = await axios.get(`${baseURL}/users`, {

@@ -10,9 +10,9 @@ export interface User {
 }
 
 export const useGetUsers = (
-  query: string,
-  page: number,
-  limit: number | null
+  query?: string,
+  page?: number,
+  limit?: number | null
 ) => {
   return useQuery(['users', query, page, limit], () =>
     getUsers({ query, page, limit })

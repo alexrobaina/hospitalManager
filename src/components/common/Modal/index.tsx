@@ -1,4 +1,4 @@
-import { CancelIcon } from '../icons';
+import { CancelIcon } from '../../../assets/icons';
 import { BaseButton } from '../BaseButton';
 import { motion } from 'framer-motion';
 

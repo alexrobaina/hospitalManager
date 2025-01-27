@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
-import { ClipboardHeartIcon } from '../icons';
+import { ClipboardHeartIcon } from '../../assets/icons';
 
 export const Navbar: FC = () => {
   return (

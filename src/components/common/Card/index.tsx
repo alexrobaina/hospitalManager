@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { EditIcon, DeleteIcon } from '../icons';
+import { EditIcon, DeleteIcon } from '../../../assets/icons';
 
 interface CardProps {
   name: string;
@@ -50,7 +50,7 @@ export const Card: FC<CardProps> = ({
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-500 hover:underline mt-2 block"
+            className="text-blue-500 w-[100px] hover:underline mt-2 block"
           >
             Visit Website
           </a>
@@ -66,7 +66,7 @@ export const Card: FC<CardProps> = ({
             onClick={(e) => handleDelete(e, id)}
             className="z-10 flex items-center gap-2"
           >
-            <DeleteIcon />
+            <DeleteIcon color="red" />
           </div>
         </div>
       </div>
