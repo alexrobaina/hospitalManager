@@ -1,12 +1,107 @@
-# Hospital Management System
+Here’s a clean and concise documentation with emojis to explain the repository structure and key concepts:
 
-This is a challenge web application for managing hospital patients, built with React and TypeScript.
+---
 
-## 🚀 Features
+# 📚 **Hospital Manager Repository Documentation**
 
-- Patient Management GET, POST, PUT, DELETE
-- Interactive Dashboard with charts and cards (This page is only for add library chart and add more pages)
-- Responsive Design
+Welcome to the **Hospital Manager** repository! This is a web application designed to manage hospital patients effectively. Built using Vite.js, Tailwind CSS, React and TypeScript.
+
+---
+
+## 🏗 **Architecture Overview**
+
+### **Root Directory**
+
+- **`README.md`**: 📖 Comprehensive project documentation.
+- **`eslint.config.js` & `.prettierrc`**: 🛠 Configuration files to maintain code quality and consistency.
+- **`package.json`**: 📦 Dependency and script management.
+- **`vite.config.ts`**: ⚡ Configuration for the Vite build tool.
+
+---
+
+### **`/public`**
+
+📂 Static assets for the application (e.g., images, icons).
+
+---
+
+### **`/src`**
+
+The core application logic resides here.
+
+#### **Assets** 📂
+
+- **`/icons`**: 🖼 Reusable React SVG icons.
+- **`/images`**: 📷 Static image files.
+- **`/lottie`**: 🎥 Lottie animations (e.g., `medicalRecord.json`).
+
+#### **Components** ⚛️
+
+Reusable components to build the UI:
+
+- **`/common`**: 🌐 Shared components like `BaseButton`, `BaseInput`, and `Modal`.
+- **`/Layout`**: 📐 Page layout wrapper.
+- **`/Navbar` & `/Pagination`**: 🚀 Navigation and pagination utilities.
+
+#### **Hooks** 🪝
+
+Custom React hooks for API interactions:
+
+- `useGetUsers` 🧑‍⚕️: Fetch a list of patients.
+- `useCreateUser` ➕: Create a new patient.
+- `useEditUser` ✏️: Edit existing patient details.
+- `useDeleteUser` 🗑️: Delete a patient.
+
+#### **Pages** 📄
+
+Feature-specific pages for the app:
+
+- **`HomePage`** 🏠: Landing page with animations and login modal.
+- **`DashboardPage`** 📊: Overview of stats and trends.
+- **`PatientListPage`** 📋: Manage and browse all patients.
+- **`PatientPage`** 👤: Detailed view of an individual patient.
+
+#### **Services** 🔧
+
+Centralized application services like `AppContext` for state management and API utilities in `api/user.ts`.
+
+#### **Types** 🗂
+
+Shared TypeScript types (e.g., `User`).
+
+---
+
+## 🚀 **How to Run**
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/alexrobaina/hospitalManager.git
+   cd hospitalManager
+   ```
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+3. Start the development server:
+   ```bash
+   pnpm run dev
+   ```
+
+## 🔧 Available Scripts
+
+- `pnpm run dev` - Start development server
+- `pnpm run build` - Build for production
+- `pnpm run lint` - Run ESLint
+- `pnpm run format` - Format code with Prettier
+- `pnpm run preview` - Preview production build
+
+---
+
+## 🎉 **Features**
+
+- **CRUD Operations**: Manage patient records.
+- **Interactive Dashboard**: View stats with charts.
+- **Responsive Design**: Mobile-friendly UI.
 
 ## 🛠️ Tech Stack
 
@@ -24,31 +119,4 @@ This is a challenge web application for managing hospital patients, built with R
   - Lottie React
 - **Notifications:** React Toastify
 
-## 📦 Installation
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/alexrobaina/hospitalManager.git
-```
-
-2. Install dependencies:
-
-```bash
-cd hospitalManager
-pnpm install
-```
-
-3. Start the development server:
-
-```bash
-pnpm run dev
-```
-
-## 🔧 Available Scripts
-
-- `pnpm run dev` - Start development server
-- `pnpm run build` - Build for production
-- `pnpm run lint` - Run ESLint
-- `pnpm run format` - Format code with Prettier
-- `pnpm run preview` - Preview production build
+### 🎉 Happy coding! and enjoy the project! 🎉

@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import { Navigate } from 'react-router-dom';
 import { AppContext } from '../services/AppContext';
 import { useContext } from 'react';
-import { Navigation } from './common/Navigation';
+import { Navigation } from './Navigation';
 
 const PrivateRoute = observer(() => {
   const appContext = useContext(AppContext);
