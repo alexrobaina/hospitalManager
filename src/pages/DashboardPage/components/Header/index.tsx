@@ -1,5 +1,15 @@
 import { BaseButton } from '../../../../components/common/BaseButton';
 import { PlusIcon } from '../../../../assets/icons';
+import { ReactElement } from 'react';
+
+interface HeaderProps {
+  title: string;
+  description: string;
+  onButtonClick?: () => void;
+  buttonText?: string;
+  buttonIcon?: ReactElement;
+  className?: string;
+}
 
 export const Header = ({
   title,
@@ -8,14 +18,7 @@ export const Header = ({
   buttonText = 'Add Patient',
   buttonIcon = <PlusIcon className="w-5 h-5" />,
   className = '',
-}: {
-  title: string;
-  description: string;
-  onButtonClick?: () => void;
-  buttonText?: string;
-  buttonIcon?: React.ReactNode;
-  className?: string;
-}) => (
+}: HeaderProps) => (
   <div className={`flex justify-between items-center ${className}`}>
     <div>
       <h1 className="text-4xl font-bold mb-4">{title}</h1>

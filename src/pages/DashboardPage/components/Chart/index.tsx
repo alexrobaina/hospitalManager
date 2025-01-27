@@ -12,7 +12,7 @@ import {
 
 interface ChartProps {
   title: string;
-  data: Array<{ month: string; value: number }>;
+  data: Array<{ month: string; [key: string]: string | number }>;
   dataKey: string;
   barColor: string;
 }
