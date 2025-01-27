@@ -1,8 +1,12 @@
 import { FC, ReactElement, MouseEvent, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ButtonNavigate } from '../ButtonNavigate';
-import { ClipboardHeartIcon, DashboardIcon, LogoutIcon } from '../../../icons';
-import { AppContext } from '../../../../services/AppContext';
+import {
+  ClipboardHeartIcon,
+  DashboardIcon,
+  LogoutIcon,
+} from '../../../../../assets/icons';
+import { AppContext } from '../../../../../services/AppContext';
 
 interface Props {
   children: ReactElement;
@@ -15,6 +19,11 @@ const TOP_NAVIGATION = [
     to: '/dashboard',
     icon: <DashboardIcon />,
     text: 'dashboard',
+  },
+  {
+    to: '/patient-list',
+    icon: <ClipboardHeartIcon />,
+    text: 'Patient List',
   },
 ];
 
@@ -57,11 +66,11 @@ export const SideBar: FC<Props> = ({
 
   return (
     <div className="flex relative z-2">
-      <div className="overflow-hidden z-20 flex justify-between items-center fixed w-full h-[67px] mr-2 sm:w-auto sm:h-auto bottom-0 top-0 sm:mt-2 sm:mb-2 sm:ml-2 sm:flex sm:flex-col bg-cyan-400 rounded-md">
+      <div className="overflow-hidden z-20 flex justify-between items-center fixed w-full h-[67px] mr-2 sm:w-auto sm:h-auto bottom-0 top-0 sm:mt-2 sm:mb-2 sm:ml-2 sm:flex sm:flex-col bg-teal-400 rounded-md">
         <div className="flex sm:w-full sm:p-4 items-center gap-2 px-4">
-          <ClipboardHeartIcon className="w-9 h-9" />
+          <ClipboardHeartIcon className="w-9 h-9 text-gray-800" />
           {!menuIsCollapsed && (
-            <p className="text-md font-bold w-full text-overflow-ellipsis">
+            <p className="text-md text-gray-800 font-bold w-full text-overflow-ellipsis">
               Hospital Manager
             </p>
           )}
@@ -70,10 +79,9 @@ export const SideBar: FC<Props> = ({
           onClick={handleMenuIsCollapsed}
           className={`${
             menuIsCollapsed ? 'sm:w-[67px] w-full' : 'sm:w-[218px] w-[67px]'
-          } bg-cyan-200 pt-4=2 h-full cursor-pointer
-           rounded-md flex sm:flex-col justify-between gap-10 sm:gap-0 items-center p-2`}
+          } bg-teal-100 pt-4 h-full cursor-pointer rounded-md flex sm:flex-col justify-between gap-10 sm:gap-0 items-center p-2`}
         >
-          <div className="sm:w-full flex sm:flex-col gap-2">
+          <div className="sm:w-full flex sm:flex-col gap-3">
             {TOP_NAVIGATION.map((item, index) => (
               <ButtonNavigate
                 key={index}

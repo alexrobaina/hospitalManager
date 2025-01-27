@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 
 import PrivateRoute from './components/PrivateRoute';
 
+import { PatientListPage } from './pages/PatientListPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { PatientPage } from './pages/PatientPage';
 import { AppContext, AppContextProps } from './services/AppContext';
@@ -22,6 +23,11 @@ const router = createBrowserRouter([
         path: '/dashboard',
         element: <PrivateRoute />,
         children: [{ path: '', element: <DashboardPage /> }],
+      },
+      {
+        path: '/patient-list',
+        element: <PrivateRoute />,
+        children: [{ path: '', element: <PatientListPage /> }],
       },
       {
         path: '/',

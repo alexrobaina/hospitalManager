@@ -19,13 +19,15 @@ export const ButtonNavigate: FC<Props> = ({
     <button
       onClick={handleNavigation}
       className={`${
-        isSelected ? 'bg-cyan-300' : ''
-      } flex cursor-pointer justify-start gap-2 p-2 pl-[10px] w-full h-[48px] w-48px bg-cyan-400 rounded-md items-center hover:bg-cyan-300`}
+        isSelected ? 'bg-teal-300' : ''
+      } flex cursor-pointer justify-start gap-2 p-2 pl-[10px] w-full h-[48px] w-48px bg-teal-400 rounded-md items-center hover:bg-teal-300`}
     >
       <div style={{ stroke: '30px' }} className="flex justify-center w-[30px]">
         {icon}
       </div>
-      {!menuIsCollapsed && <p className="text-md capitalize">{text}</p>}
+      {!menuIsCollapsed && (
+        <p className="text-md capitalize text-gray-800 font-semibold">{text}</p>
+      )}
     </button>
   );
 };

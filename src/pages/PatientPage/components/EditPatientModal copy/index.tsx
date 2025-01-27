@@ -1,28 +1,36 @@
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Modal } from '../../../../components/common/Modal';
 import { BaseInput } from '../../../../components/common/BaseInput';
 import { User } from '../../../../types/user';
-import { useCreateUser } from '../../../../hooks/useCreateUser';
+import { useEditUser } from '../../../../hooks/useEditUser';
 
-interface CreatePatientModalProps {
+interface EditPatientModalProps {
   isOpen: boolean;
   onClose: () => void;
+  initialData: User | Partial<User>;
 }
 
-export const CreatePatientModal: React.FC<CreatePatientModalProps> = ({
+export const EditPatientModal: React.FC<EditPatientModalProps> = ({
   isOpen,
   onClose,
+  initialData,
 }) => {
-  const { mutate: createUser } = useCreateUser();
+  const { mutate: editUser } = useEditUser('users');
+  const [formData, setFormData] = useState<User | Partial<User>>(initialData);
+
+  useEffect(() => {
+    setFormData(initialData);
+  }, [initialData]);
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      description: '',
-      website: '',
-      avatar: '',
-      id: '',
+      name: formData.name || '',
+      description: formData.description || '',
+      website: formData.website || '',
+      avatar: formData.avatar || '',
+      id: formData.id || '',
     },
     validationSchema: Yup.object({
       name: Yup.string().required('Name is required'),
@@ -31,18 +39,23 @@ export const CreatePatientModal: React.FC<CreatePatientModalProps> = ({
       avatar: Yup.string().url('Invalid URL').nullable(),
     }),
     onSubmit: (values) => {
-      createUser(values as User);
-      formik.resetForm();
+      editUser(values as User);
       onClose();
     },
   });
+
+  useEffect(() => {
+    formik.setValues(initialData as User);
+  }, [initialData]);
+
+  console.log(formik.values);
 
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title="Create Patient"
-      submitText="Create"
+      title="Edit Patient"
+      submitText="Save Changes"
       onSubmit={formik.handleSubmit}
     >
       <form onSubmit={formik.handleSubmit} className="space-y-4 w-full">
@@ -62,7 +75,7 @@ export const CreatePatientModal: React.FC<CreatePatientModalProps> = ({
           placeholder="Enter avatar URL"
           onChange={formik.handleChange}
           error={formik.touched.avatar && formik.errors.avatar}
-          value={formik.values.avatar || ''}
+          value={formik.values.avatar || initialData.avatar || ''}
         />
         <div className="col-span-2">
           <BaseInput
@@ -72,7 +85,7 @@ export const CreatePatientModal: React.FC<CreatePatientModalProps> = ({
             onChange={formik.handleChange}
             placeholder="Enter patient description"
             error={formik.touched.description && formik.errors.description}
-            value={formik.values.description || ''}
+            value={formik.values.description || initialData.description || ''}
           />
         </div>
         <BaseInput
@@ -82,7 +95,7 @@ export const CreatePatientModal: React.FC<CreatePatientModalProps> = ({
           placeholder="Enter website URL"
           onChange={formik.handleChange}
           error={formik.touched.website && formik.errors.website}
-          value={formik.values.website || ''}
+          value={formik.values.website || initialData.website || ''}
         />
         <button type="submit" />
       </form>

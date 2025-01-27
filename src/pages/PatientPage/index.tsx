@@ -1,12 +1,12 @@
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { useUserById } from '../../hooks/useUserById';
 import { PatientSkeleton } from './components/PatientSkeleton';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { EditPatientModal } from './components/EditPatientModal';
 import { motion } from 'framer-motion';
-import { BaseButton } from '../../components/BaseButton';
-import { NetworkIcon } from '../../components/icons';
+import { BaseButton } from '../../components/common/BaseButton';
+import { NetworkIcon } from '../../assets/icons';
 import imageNotFound from '../../assets/images/imageNotFound.png';
 
 export const PatientPage = () => {
@@ -26,25 +26,19 @@ export const PatientPage = () => {
     e.currentTarget.alt = 'Image not found';
   };
 
-  if (!id) return <div>No patient ID provided</div>;
   if (isLoading) return <PatientSkeleton />;
-  if (error) return <div>Error loading user data</div>;
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="container mx-auto px-4 py-8"
+      className="container mx-auto px-2 py-2"
     >
       <BaseButton text="Back" onClick={handleBack} />
       <div className="bg-white rounded-lg shadow-lg overflow-hidden mt-4">
-        {/* Header/Banner */}
-        <div className="h-48 bg-gradient-to-r from-cyan-500 to-blue-600" />
-
-        {/* Profile Content */}
+        <div className="h-48 bg-gradient-to-r from-teal-500 to-blue-600" />
         <div className="relative px-6 py-8">
-          {/* Profile Image */}
           <div className="absolute -top-16 left-6">
             <img
               alt={user?.name}
@@ -54,7 +48,6 @@ export const PatientPage = () => {
             />
           </div>
 
-          {/* Profile Info */}
           <div className="ml-40 flex justify-between items-center">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">{user?.name}</h1>
@@ -66,9 +59,7 @@ export const PatientPage = () => {
             />
           </div>
 
-          {/* Details Section */}
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* About Section */}
             <div className="bg-gray-50 p-6 rounded-lg">
               <h2 className="text-xl font-semibold text-gray-900 mb-4">
                 About
@@ -78,7 +69,6 @@ export const PatientPage = () => {
               </p>
             </div>
 
-            {/* Contact Information */}
             <div className="bg-gray-50 p-6 rounded-lg">
               <h2 className="text-xl font-semibold text-gray-900 mb-4">
                 Contact Information
