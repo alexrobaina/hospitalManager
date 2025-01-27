@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useUserById } from '../../hooks/useUserById';
 import { PatientSkeleton } from './components/PatientSkeleton';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ import imageNotFound from '../../assets/images/imageNotFound.png';
 
 export const PatientPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { data: user, isLoading, error } = useUserById(id || '');
+  const { data: user, isLoading } = useUserById(id || '');
   const navigate = useNavigate();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 

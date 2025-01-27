@@ -50,8 +50,9 @@ export const SideBar: FC<Props> = ({
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 638) {
-        setMenuIsCollapsed(true);
+        return setMenuIsCollapsed(true);
       }
+      setMenuIsCollapsed(false);
     };
 
     // Add event listener
@@ -62,7 +63,7 @@ export const SideBar: FC<Props> = ({
 
     // Remove event listener on cleanup
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  });
 
   return (
     <div className="flex relative z-2">

@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Modal } from '../../../../components/common/Modal';
 import { BaseInput } from '../../../../components/common/BaseInput';
@@ -21,22 +20,19 @@ export const EditPatientModal: React.FC<EditPatientModalProps> = ({
 
   const formik = useFormik({
     initialValues: {
-      id: '',
-      name: '',
-      avatar: '',
-      website: '',
-      description: '',
+      id: initialData.id || '',
+      name: initialData.name || '',
+      avatar: initialData.avatar || '',
+      website: initialData.website || '',
+      description: initialData.description || '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       editUser(values as User);
       onClose();
     },
+    enableReinitialize: true,
   });
-
-  useEffect(() => {
-    formik.setValues(initialData as User);
-  }, [initialData]);
 
   return (
     <Modal

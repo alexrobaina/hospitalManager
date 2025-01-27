@@ -41,7 +41,7 @@ export const BaseButton: FC<Props> = ({
       className={`flex text-base cursor-pointer items-center justify-center gap-3  ${
         wFull ? 'w-full' : 'w-auto'
       } 
-    ${className && className} py-3 px-5 rounded 
+    ${className && className} py-2 px-5 rounded 
     ${
       shouldDisplayOnlyIcon(text, icon) &&
       'w-[36px] h-[36px] md:w-[36px] md:h-[36px] py-0 px-0'

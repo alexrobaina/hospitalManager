@@ -44,12 +44,6 @@ export const EditPatientModal: React.FC<EditPatientModalProps> = ({
     },
   });
 
-  useEffect(() => {
-    formik.setValues(initialData as User);
-  }, [initialData]);
-
-  console.log(formik.values);
-
   return (
     <Modal
       isOpen={isOpen}
