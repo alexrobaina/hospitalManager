@@ -19,7 +19,7 @@ export const Header = ({
   buttonIcon = <PlusIcon className="w-5 h-5" />,
   className = '',
 }: HeaderProps) => (
-  <div className={`flex justify-between items-center ${className}`}>
+  <div className={`flex justify-between items-center ${className} flex-wrap`}>
     <div>
       <h1 className="text-4xl font-bold mb-4">{title}</h1>
       <p className="text-xl text-gray-500 mb-4 font-medium">{description}</p>

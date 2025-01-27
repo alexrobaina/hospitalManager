@@ -7,7 +7,7 @@ export const useDeleteUser = () => {
 
   return useMutation(deleteUser, {
     onSuccess: () => {
-      queryClient.invalidateQueries('user');
+      queryClient.invalidateQueries('users');
       toast.success('User deleted successfully');
     },
     onError: () => {

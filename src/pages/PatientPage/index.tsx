@@ -48,7 +48,7 @@ export const PatientPage = () => {
             />
           </div>
 
-          <div className="ml-40 flex justify-between items-center">
+          <div className="ml-40 flex justify-between items-center flex-wrap gap-4">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">{user?.name}</h1>
               <p className="text-gray-500 mt-1">Patient ID: {id}</p>
