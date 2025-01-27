@@ -5,8 +5,8 @@ import {
   ClipboardHeartIcon,
   DashboardIcon,
   LogoutIcon,
-} from '../../../../../assets/icons';
-import { AppContext } from '../../../../../services/AppContext';
+} from '../../../../assets/icons';
+import { AppContext } from '../../../../services/AppContext';
 
 interface Props {
   children: ReactElement;

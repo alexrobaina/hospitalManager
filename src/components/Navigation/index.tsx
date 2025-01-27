@@ -2,9 +2,8 @@ import { observer } from 'mobx-react';
 import { FC, useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
-import Layout from '../../Layout/Layout';
-
 import { SideBar } from './components/SideBar';
+import Layout from '../Layout';
 
 export const Navigation: FC = observer(() => {
   const { pathname } = useLocation();
