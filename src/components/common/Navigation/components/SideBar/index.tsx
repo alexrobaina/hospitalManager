@@ -44,30 +44,24 @@ export const SideBar: FC<Props> = ({
 
   const isSelected = (path: string) => {
     const pathname = window.location.pathname;
+
     return pathname.includes(path);
   };
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 638) {
-        return setMenuIsCollapsed(true);
-      }
-      setMenuIsCollapsed(false);
+      setMenuIsCollapsed(window.innerWidth < 638);
     };
 
-    // Add event listener
+    handleResize(); // Initial check
     window.addEventListener('resize', handleResize);
 
-    // Call handler right away so state gets updated with initial window size
-    handleResize();
-
-    // Remove event listener on cleanup
     return () => window.removeEventListener('resize', handleResize);
-  });
+  }, [setMenuIsCollapsed]);
 
   return (
     <div className="flex relative z-2">
-      <div className="overflow-hidden z-20 flex justify-between items-center fixed w-full h-[67px] mr-2 sm:w-auto sm:h-auto bottom-0 top-0 sm:mt-2 sm:mb-2 sm:ml-2 sm:flex sm:flex-col bg-teal-400 rounded-md">
+      <div className="overflow-hidden z-20 flex justify-between items-center fixed w-full h-[67px] mr-2 sm:w-auto sm:h-auto bottom-0 top-0 sm:mt-2 sm:mb-2 sm:ml-2 sm:flex sm:flex-col bg-teal-500 rounded-md">
         <div className="flex sm:w-full sm:p-4 items-center gap-2 px-4">
           <ClipboardHeartIcon className="w-9 h-9 text-gray-800" />
           {!menuIsCollapsed && (
@@ -80,15 +74,15 @@ export const SideBar: FC<Props> = ({
           onClick={handleMenuIsCollapsed}
           className={`${
             menuIsCollapsed ? 'sm:w-[67px] w-full' : 'sm:w-[218px] w-[67px]'
-          } bg-teal-100 pt-4 h-full cursor-pointer rounded-md flex sm:flex-col justify-between gap-10 sm:gap-0 items-center p-2`}
+          } bg-teal-100 sm:pt-4 h-full cursor-pointer rounded-md flex sm:flex-col justify-between gap-10 sm:gap-0 items-center p-2`}
         >
           <div className="sm:w-full flex sm:flex-col gap-3">
-            {TOP_NAVIGATION.map((item, index) => (
+            {TOP_NAVIGATION.map((item) => (
               <ButtonNavigate
-                key={index}
+                key={item.to}
                 icon={item.icon}
                 text={item.text}
-                isSelected={isSelected(item.text)}
+                isSelected={isSelected(item.to)}
                 menuIsCollapsed={menuIsCollapsed}
                 handleNavigation={(e: MouseEvent<HTMLButtonElement>) => {
                   e.stopPropagation();

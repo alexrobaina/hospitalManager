@@ -2,7 +2,7 @@ import { useGetUsers } from '../../hooks/useGetUsers';
 import { Header } from '../../components/common/Header';
 import { appointmentsData, realisticData } from './ constants';
 import { Card } from './components/Card';
-import { Chart } from './components/Chart';
+import { Chart } from '../../components/common/Chart';
 
 export const DashboardPage = () => {
   const { data } = useGetUsers();

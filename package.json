@@ -13,7 +13,6 @@
     "tailwind:init": "tailwindcss init"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.0",
     "@tailwindcss/postcss": "^4.0.0",
     "@tailwindcss/vite": "^4.0.0",
     "axios": "^1.7.9",
