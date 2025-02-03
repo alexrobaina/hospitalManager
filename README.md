@@ -19,12 +19,6 @@ Welcome to the **Hospital Manager** repository! This is a web application design
 
 ---
 
-### **`/public`**
-
-📂 Static assets for the application (e.g., images, icons).
-
----
-
 ### **`/src`**
 
 The core application logic resides here.
